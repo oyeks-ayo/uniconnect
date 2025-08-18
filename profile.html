@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile Setup | GO University Connect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            padding: 40px;
+        }
+        .form-container {
+            background: white;
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background: #2e4e96;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #233b70;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Complete Your Profile</h2>
+        <form action="dashboard.html" method="GET">
+            <label>Full Name</label>
+            <input type="text" name="name" required>
+
+            <label>Profile Picture</label>
+            <input type="file" name="profile_pic" accept="image/*">
+
+            <label>Faculty</label>
+            <select name="faculty" required>
+                <option value="">-- Select Faculty --</option>
+                <option>Faculty of Law</option>
+                <option>Faculty of Management & Social Sciences</option>
+                <option>Faculty of Education</option>
+                <option>Faculty of Natural & Applied Sciences</option>
+                <option>Faculty of Philosophy</option>
+            </select>
+
+            <label>Bio</label>
+            <textarea name="bio" placeholder="Write something about yourself..."></textarea>
+
+            <label>Interests</label>
+            <input type="text" name="interests" placeholder="e.g., Sports, Music, Tech">
+
+            <button type="submit">Go to Dashboard</button>
+        </form>
+    </div>
+</body>
+</html>

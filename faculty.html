@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty Group - Computer Science</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+}
+header {
+  background: #2e4e96;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header h1 {
+  font-size: 18px;
+}
+header input {
+  padding: 6px;
+  width: 260px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+}
+header .icons i {
+  margin-left: 15px;
+  cursor: pointer;
+}
+.container {
+  display: grid;
+  grid-template-columns: 20% 55% 25%;
+  gap: 20px;
+  padding: 20px;
+}
+.left, .center, .right {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+}
+.group-nav {
+  margin-bottom: 15px;
+}
+.group-nav div {
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 5px;
+}
+.group-nav div:hover {
+  background: #f0f0f0;
+}
+.post-box textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+.post-box button {
+  background: #2e4e96;
+  color: white;
+  padding: 7px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 8px;
+  float: right;
+}
+.post {
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 15px;
+  border: 1px solid #eee;
+}
+.post strong {
+  color: #2e4e96;
+}
+.event, .member {
+  background: #f9f9f9;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.member {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.member img {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Faculty of Computer Science</h1>
+  <input type="text" placeholder="Search in group...">
+  <div class="icons">
+    <a href="log.php"><i class="fas fa-home"></i></a>
+    <i class="fas fa-envelope"></i>
+    <i class="fas fa-bell"></i>
+    <i class="fas fa-user-circle"></i>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Left Sidebar -->
+  <div class="left">
+    <h3>Group Menu</h3>
+    <div class="group-nav">
+      <div><i class="fas fa-rss"></i> Posts</div>
+      <div><i class="fas fa-file-alt"></i> Materials</div>
+      <div><i class="fas fa-calendar"></i> Events</div>
+      <div><i class="fas fa-users"></i> Members</div>
+    </div>
+  </div>
+
+  <!-- Center Feed -->
+  <div class="center">
+    <div class="post-box">
+      <textarea rows="3" placeholder="Share something with your faculty..."></textarea>
+      <button>Post</button>
+    </div>
+
+    <div class="post">
+      <strong>Admin (HOD)</strong> <span style="color: gray;">· Pinned</span>
+      <p>📢 Mid-Semester Exams will begin on Sept 20th. Please check the timetable uploaded under Materials.</p>
+    </div>
+
+    <div class="post">
+      <strong>Mary James</strong> <span style="color: gray;">· 2h ago</span>
+      <p>Anyone with CSC201 past questions? Please share 🙏</p>
+    </div>
+
+    <div class="post">
+      <strong>Class Rep</strong> <span style="color: gray;">· 3h ago</span>
+      <p>📊 Poll: When should we hold extra tutorials?</p>
+      <ul>
+        <li>Friday Evening</li>
+        <li>Saturday Morning</li>
+        <li>Sunday Afternoon</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Right Sidebar -->
+  <div class="right">
+    <h3>Upcoming Events</h3>
+    <div class="event">💻 Hackathon — Sept 25</div>
+    <div class="event">🎤 Seminar on AI — Oct 2</div>
+
+    <h3>Members</h3>
+    <div class="member"><img src="images/vc.jpeg"> John Doe</div>
+    <div class="member"><img src="images/profile.jpg"> Mary James</div>
+    <div class="member"><img src="images/profile.jpg"> Class Rep</div>
+  </div>
+</div>
+
+</body>
+</html>

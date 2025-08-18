@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GO University Connect - Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #f0f2f5;
+    }
+    .profile-header {
+      background: #2e4e96;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .profile-header img {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border: 3px solid white;
+    }
+    .post, .sidebar-box {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .action-buttons button {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container my-4">
+
+    
+
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <img src="images/profile.jpg" alt="Profile Picture">
+    <div>
+      <h4 class="mb-0">Mary James</h4>
+      <small>300 Level, Computer Science</small><br>
+      <small><i class="fas fa-circle text-success"></i> Online</small>
+    </div>
+  </div>
+
+  <!-- Profile Actions -->
+  <div class="my-3 action-buttons">
+    <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Add Friend</button>
+    <button class="btn btn-success"><i class="fas fa-envelope"></i> Message</button>
+    <button class="btn btn-outline-danger"><i class="fas fa-ban"></i> Block</button>
+     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#messageModal">
+  Message
+</button>
+  </div>
+
+  <div class="row">
+    <!-- Left Sidebar -->
+    <div class="col-12 col-md-4 col-lg-3">
+      <div class="sidebar-box">
+        <h5>About</h5>
+        <p>Passionate about coding, tech, and design. Loves campus events and competitions.</p>
+        <h6>Interests</h6>
+        <ul>
+          <li>Web Development</li>
+          <li>Photography</li>
+          <li>Debating</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-box">
+        <h5>Mutual Friends</h5>
+        <p>John Doe, Grace Akpan, Michael Peter</p>
+      </div>
+    </div>
+   
+
+
+    <!-- Center Content -->
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="post">
+        <strong>Mary James</strong> <span class="text-muted">· 1h ago</span>
+        <p>Excited for the upcoming hackathon! Who’s joining? 🚀</p>
+      </div>
+ <!-- Vice Chancellor Official Announcement -->
+<div class="card mb-4 shadow-lg border-0">
+  <div class="card-header bg-primary text-white d-flex align-items-center">
+    <img src="images/vc.jpeg" alt="GO University Logo" class="rounded-circle me-2" width="40" height="40">
+    <div>
+      <strong>Vice Chancellor</strong>  
+      <span class="badge bg-warning text-dark ms-2">Official</span><br>
+      <small>Posted on: Aug 15, 2025</small>
+    </div>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Annual Founders’ Day Ceremony</h5>
+    <p class="card-text">
+      Dear Students,<br>
+      Godfrey Okoye University will host the <strong>Annual Founders’ Day</strong> on  
+      <strong>September 10th, 2025</strong> at the Main Auditorium.  
+      Attendance is mandatory for all faculties.  
+    </p>
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-outline-primary btn-sm"><i class="fas fa-bullhorn"></i> Read More</button>
+      <small class="text-muted">7,023 students reached</small>
+    </div>
+  </div>
+</div>
+
+
+
+      <div class="post">
+        <strong>Mary James</strong> <span class="text-muted">· 2d ago</span>
+        <p>Just sold my old laptop in the marketplace. Smooth experience!</p>
+        <img src="images/lapi.jpeg" class="img-fluid rounded" alt="Laptop">
+      </div>
+    </div>
+    
+
+    <!-- Right Sidebar -->
+    <div class="col-12 col-lg-3">
+      <div class="sidebar-box">
+        <h5>Marketplace Items</h5>
+        <p>📚 Physics Textbook — ₦2,000</p>
+        <p>🎧 Headphones — ₦5,000</p>
+      </div>
+
+      <div class="sidebar-box">
+        <h5>Upcoming Events</h5>
+        <p>🎤 Talent Show — Aug 25</p>
+        <button class="btn btn-sm btn-primary">Join</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Message Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="messageModalLabel">
+          <img src="images/profile.jpg" class="rounded-circle me-2" width="35" height="35">
+          Mary James
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Chat Body -->
+      <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+        <!-- Message from them -->
+        <div class="d-flex mb-3">
+          <img src="images/profile.jpg" class="rounded-circle me-2" width="30" height="30">
+          <div class="p-2 bg-light rounded">
+            Hey, are you coming to the hackathon tomorrow?
+          </div>
+        </div>
+
+        <!-- Message from me -->
+        <div class="d-flex justify-content-end mb-3">
+          <div class="p-2 bg-primary text-white rounded">
+            Yes! I’ll be there by 9 AM.
+          </div>
+        </div>
+
+        <!-- Typing indicator -->
+        <div class="text-muted small">
+          Mary is typing…
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <input type="text" class="form-control" placeholder="Type a message...">
+        <button class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
