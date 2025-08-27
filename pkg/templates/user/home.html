@@ -78,7 +78,7 @@ a {
        <!-- <a href="{{url_for('profile',id=user_id)}}"><div class="nav-link-custom"><img src="/static/uploads/profile/{{profile.pix}}" class="profile-pic"> My Profile</div></a> -->
        <a class="text-decoration-none text-dark" href="{{ url_for('profile', id=user_id) }}">
         <div class="nav-link-custom">
-          {% if profile and profile.pix %}
+          {%  if profile and profile.pix  %}
             <img src="{{ url_for('static', filename='uploads/profile/' ~ profile.pix) }}" class="profile-pic">
           {% else %}
             <img src="{{ url_for('static', filename='uploads/profile/default.jpeg') }}" class="profile-pic">
