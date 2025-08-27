@@ -30,12 +30,17 @@ instance/
 *.swp
 *~
 
-# ---- Migrations (optional) ----
-#migrations/
-pkg/static/bootstrap/
-pkg/static/uploads/
-pkg/securekey.py
+# ---- Migrations ----
+migrations/
 
+# ---- Static Files ----
+# Ignore all Bootstrap except minified versions
 pkg/static/bootstrap/*
 !pkg/static/bootstrap/*.min.css
 !pkg/static/bootstrap/*.min.js
+
+# Ignore uploaded user files
+pkg/static/uploads/
+
+# ---- Secrets ----
+pkg/securekey.py
