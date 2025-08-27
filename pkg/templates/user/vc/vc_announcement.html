@@ -1,0 +1,75 @@
+{% include "metas.html" %}
+<body class="bg-light">
+  {% include 'navbar.html' %}
+
+<div class="container py-4">
+
+  <div class="container mt-3">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <h2 class="mb-4 text-primary"><i class="fas fa-bullhorn"></i> Vice Chancellor Announcements</h2>
+  {% if session['isonline'] == vc_id %}
+  <form action="{{url_for('announcement')}}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="row d-block mb-3">
+      <div class="col mb-3">
+        <label class="form-control">
+          <i class="fas fa-book"></i> Title
+          <input class="form-control" name="title" type="text">
+        </label>
+      </div>
+      <div class="col">
+        <label class="form-control">
+          <i class="fas fa-pencil-alt"></i> Announcement
+          <textarea class="form-control" name="announcement" rows="3" placeholder="Write your announcement here..."></textarea>
+        </label>
+      </div>
+    </div>
+
+    <button class="btn btn-primary mb-3 form-control" type="submit"><i class="fas fa-plus-circle"></i> Post Announcement</button>
+  </form>
+{% endif %}
+  <!-- Announcement Card -->
+   {% for info in announcements %}
+  <div class="card mb-3 shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <strong>{{info.title}}</strong>  
+      <small class="float-end">{{info.date_posted.strftime('%b %dth %Y')}}</small>
+      <small class="float-end mx-5">Posted {{ info.date_posted|time_ago }}</small>
+
+    </div>
+    <div class="card-body">
+      <p>
+        {{info.content}}
+      </p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+<script>
+  // Auto-dismiss flash messages after 5 seconds
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      let alerts = document.querySelectorAll('.alert');
+      alerts.forEach(function (alert) {
+        let bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+      });
+    }, 5000); // 5000ms = 5 seconds
+  });
+</script>
+</body>
+</html>

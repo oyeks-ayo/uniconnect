@@ -1,0 +1,137 @@
+{% include "metas.html" %}
+    <title>Profile Setup | GO University Connect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            padding: 40px;
+        }
+        .form-container {
+            background: white;
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background: #2e4e96;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #233b70;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+      
+      <div class="form-container">
+        <h2>Complete Your Profile</h2>
+        <form action="{{ url_for('update_profile', id=user.id) }}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    
+            <!-- First Name -->
+            <label>First Name</label>
+            <input type="text" name="fname" value="{{ user.fname }}">
+    
+            <!-- Last Name -->
+            <label>Last Name</label>
+            <input type="text" name="lname" value="{{ user.lname }}">
+
+            <!-- Phone Number -->
+            <label>Phone</label>
+            <input type="text" name="phone" placeholder="11 digits phone number" value="{{ profile.phone if profile else '' }}">
+
+            <!-- Address -->
+            <label>Address</label>
+            <input type="text" name="address" placeholder="Address" value="{{ profile.address if profile else '' }}">
+    
+            <!-- Profile Picture -->
+            <label>Profile Picture</label>
+            <input type="file" name="profile_pic" accept="image/*">
+    
+            <!-- Level -->
+            <label>Level</label>
+            <select name="level" required>
+                <option value="">-- Select Level --</option>
+                {% set current_level = profile.level if profile else '' %}
+                {% for lvl in ['100L','200L','300L','400L','500L','PGD','Masters'] %}
+                <option value="{{ lvl }}" {% if current_level == lvl %}selected{% endif %}>{{ lvl }}</option>
+                {% endfor %}
+            </select>
+    
+            <!-- Faculty -->
+            <label>Faculty</label>
+            <select name="faculty" required>
+                <option value="">-- Select Faculty --</option>
+                {% set current_faculty = profile.faculty if profile else '' %}
+                {% for faculty in department|map(attribute='faculty')|unique %}
+                <option value="{{ faculty }}" {% if current_faculty == faculty %}selected{% endif %}>{{ faculty }}</option>
+                {% endfor %}
+            </select>
+    
+            <!-- Department -->
+            <label>Department</label>
+            <select name="department" required>
+                <option value="">-- Select Department --</option>
+                {% set current_dept = profile.dept_id if profile else '' %}
+                {% for p in department %}
+                <option value="{{ p.id }}" {% if current_dept == p.id %}selected{% endif %}>{{ p.dept_name }}</option>
+                {% endfor %}
+            </select>
+    
+            <!-- Bio -->
+            <label>Bio</label>
+            <textarea name="bio" placeholder="Write something about yourself...">{{ profile.bio if profile else '' }}</textarea>
+            
+            <!-- Interests -->
+            <label>Interests</label>
+            <input type="text" name="interests" placeholder="e.g., Sports, Music, Tech" value="{{ profile.interest if profile else '' }}">
+          <div class="row justify-content-between">
+            <div class="col-4"><button type="submit">Update</button></div>
+            <div class="col-4"><a class="btn btn-primary btn-lg text-decoration-none text-light" type="button" href="{{url_for('profile',id=user.id)}}">To Profile</a></div>
+          </div>
+            
+        </form>
+    </div>
+    
+
+    <script>
+        // Auto-dismiss flash messages after 5 seconds
+        document.addEventListener("DOMContentLoaded", function () {
+          setTimeout(function () {
+            let alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function (alert) {
+              let bsAlert = new bootstrap.Alert(alert);
+              bsAlert.close();
+            });
+          }, 5000); // 5000ms = 5 seconds
+        });
+      </script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+
+{% include "metas.html" %}
+<style>
+body {
+  background: #f0f2f5;
+}
+
+.nav-link-custom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+.nav-link-custom:hover {
+  background: #f0f0f0;
+  padding: 5px;
+  border-radius: 5px;
+}
+.profile-pic {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+.post-box textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+.post {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+.post img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.event, .market-item {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+a {
+  text-decoration:none;
+}
+</style>
+</head>
+<body>
+
+  {% include 'navbar.html' %}
+
+  <div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                {% if category == 'success' %}
+              <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+  </div>
+
+<div class="container my-3">
+  <div class="row g-3">
+    
+    <!-- Left Sidebar -->
+    <div class="col-lg-3 col-md-4 d-none d-md-block">
+      <div class="bg-white p-3 rounded">
+       <!-- <a href="{{url_for('profile',id=user_id)}}"><div class="nav-link-custom"><img src="/static/uploads/profile/{{profile.pix}}" class="profile-pic"> My Profile</div></a> -->
+       <a class="text-decoration-none text-dark" href="{{ url_for('profile', id=user_id) }}">
+        <div class="nav-link-custom">
+          {% if profile and profile.pix %}
+            <img src="{{ url_for('static', filename='uploads/profile/' ~ profile.pix) }}" class="profile-pic">
+          {% else %}
+            <img src="{{ url_for('static', filename='uploads/profile/default.jpeg') }}" class="profile-pic">
+          {% endif %}
+          My Profile
+        </div>
+      </a>
+      
+        <div class="nav-link-custom"><a class="text-decoration-none text-dark" href="faculty.html"><i class="fas fa-users"></i> Faculty Groups</a></div>
+        <div class="nav-link-custom"><i class="fas fa-store"></i> Marketplace</div>
+        <div class="nav-link-custom"><i class="fas fa-newspaper"></i> School Press</div>
+        <div class="nav-link-custom position-relative"><a class="text-decoration-none text-dark" href="{{url_for('announcement')}}">
+  <i class="fas fa-university"></i> VC's Updates<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">8</span></a></div>
+        <div class="nav-link-custom"><i class="fas fa-book"></i> Library Updates</div>
+      </div>
+    </div>
+
+    <!-- Center Feed -->
+    <div class="col-lg-6 col-md-8">
+      <div class="bg-white p-3 rounded mb-3 post-box">
+      
+    <form action="{{url_for('home')}}" method="POST" enctype="multipart/form-data" class="bg-white p-3 rounded">
+      <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+            <textarea name="content" rows="3" class="form-control mb-2" placeholder="What's on your mind ?" required></textarea>
+
+            
+              <!-- Image Upload -->
+              <input type="file" name="image" id="imageUpload" accept="image/*" hidden>
+              <label for="imageUpload" style="cursor:pointer; margin-right:10px;">
+                <h2> <i class="fa-solid fa-image"></i></h2>
+              </label>
+
+            <!-- Video Upload -->
+              <input type="file" name="video" id="videoUpload" accept="video/*" hidden>
+              <label for="videoUpload" style="cursor:pointer;">
+                <h3> <i class="fa-solid fa-file-video"></i></h3>
+              </label>
+
+            <button type="submit" class="btn btn-primary ms-5" name="submit_post">Post</button>
+    </form>
+<!-- <form action="process_post.php" method="POST" enctype="multipart/form-data">
+    <textarea name="content" placeholder="What's on your mind?" required></textarea>
+ 
+
+    Video Upload -->
+    <!-- <input type="file" name="video" id="videoUpload" accept="video/*" hidden>
+    <label for="videoUpload" style="cursor:pointer;">
+        <img src="icons/video-icon.png" alt="Upload Video" width="40">
+    </label>
+
+    <button type="submit" name="submit_post">Post</button> -->
+<!-- </form>  -->
+
+<!-- Button trigger -->
+
+
+
+
+<!-- Bootstrap Bundle JS (must be included) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+       </div>
+     <!-- Display Posts -->
+     {% for post in posts %}
+  <div class="post mb-4 p-3 border rounded shadow-sm bg-white">
+    <!-- Post Header -->
+    <div class="mb-2 d-flex">
+      <p class="mb-0 fw-bold">{{post.user.fname}}</p>
+      <small class="text-muted ms-3">created this post {{ post.date|time_ago }}</small>
+    </div>
+
+    <!-- Post Content -->
+     <div class="row d-flex justify-content-between align-items-center">
+      <div class="col-12">
+        <p>{{post.content}}</p>
+      </div>
+      {% if post.image %}
+      <div class="col-6 mb-2">
+        <img src="/static/uploads/image/{{post.image}}" alt="Post Image" class="card rounded">
+        <small class="text-muted d-block mt-1">Image attached</small>
+      </div>
+    {% endif %}
+
+
+<!-- If Post has Video -->
+    {% if post.video %}
+      <div class="col-6 mb-2">
+        <video src="/static/uploads/videos/{{post.video}}" alt="Post Video" controls  class="card img-fluid rounded">
+        <small class="text-muted d-block mt-1">Video attached</small>
+      </div>
+    {% endif %}
+     </div>
+    <!-- Post Actions -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      
+      <!-- Like -->
+      <!-- <div class="d-flex align-items-center">
+        <form method="post" action="" class="me-2" id="like_btn">
+          <input type="hidden" name="post_id" value="">
+          <button type="button" name="like_btn" id="but" class="btn btn-sm btn-outline-primary">
+            👍 Like
+          </button>
+        </form>
+        <span class="text-muted small">
+          likes
+        </span>
+      </div> -->
+
+
+
+<!-- Where you render a post card -->
+          <div class="d-flex align-items-center">
+            <button type="button"
+                    class="btn btn-sm btn-outline-primary like-btn"
+                    data-post-id="{{ post.id }}">
+              {% if post.likes|selectattr('user_id', 'equalto', session.get('isonline'))|list %}
+                👎 Unlike
+              {% else %}
+                👍 Like
+              {% endif %}
+            </button>
+
+            <span class="text-muted small ms-2" id="like-count-{{ post.id }}">
+              {{ post.likes|length }}
+            </span>
+          </div>
+
+    
+      
+
+      <!-- Comment -->
+      <button class="btn btn-sm btn-outline-secondary" 
+        type="button" 
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#bottomCanvas-{{ post.id }}">
+  💬 Comment
+</button>
+
+      <!-- Repost -->
+      <button class="btn btn-sm btn-outline-success">
+        🔁 Repost
+      </button>
+    </div>
+  </div>
+  {% endfor %}
+
+  <!-- Offcanvas for each Post -->
+  {% for post in posts %}
+  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="bottomCanvas-{{ post.id }}">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Comments on {{ post.user.username }}'s Post</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+  
+    <div class="offcanvas-body">
+      {% for comment in post.comments %}
+      <div class="mb-2 border-bottom pb-2">
+        <strong>{{ comment.user.username }}</strong><br>
+        <span>{{ comment.text }}</span><br>
+        <!-- <small class="text-muted">{{ comment.date_created.strftime('%Y-%m-%d %H:%M') }}</small> -->
+        <small style="border: 1px solid greenyellow; margin: 5px;"><i>{{ comment.user.username }} made a comment on this post {{ comment.date_created|time_ago }}</small></i></small>
+      </div>
+    {% else %}
+      <p class="text-muted">No comments yet. Be the first!</p>
+    {% endfor %}
+      <!-- Add New Comment -->
+      <form method="post" action="{{ url_for('comment') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="post_id" value="{{ post.id }}">
+        <textarea name="comment" class="form-control mb-1" placeholder="Write a comment..." required></textarea>
+        <button type="submit" class="btn btn-primary mb-1">Post Comment</button>
+      </form>
+    </div>
+<!-- 
+      {% for comment in post.comments %}
+    <div>
+      <h3>{{post.user.fname}}</h3>
+      <p>{{comment.comments}}</p>
+    </div>
+      {% endfor %} -->
+  </div>
+  {% endfor %}
+</div>
+  
+
+ 
+ 
+
+
+
+    <!-- Right Sidebar -->
+    <div class="col-lg-3 col-md-4">
+      <div class="bg-white p-3 rounded mb-3">
+        <h5>Upcoming Events</h5>
+        <div class="event">
+          <i class="fas fa-calendar-alt"></i> Interfaculty Debate — Aug 20
+          <i class="fas fa-microphone"></i> Talent Show — Aug 25
+         
+         
+
+          <a href=""><button class="btn btn-success  btn-sm mt-2">Join</button></a>
+        </div>
+      </div>
+
+      <div class="bg-white p-3 rounded">
+        <h5>Trending Marketplace</h5>
+        <div class="market-item">📚 Physics Textbook — ₦2,000</div>
+        <div class="market-item">🎧 Headphones — ₦5,000</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<!-- Offcanvas from bottom -->
+    
+    <!-- <div class="mt-3">
+      <form action="process/process_comment.php" method="post">
+        <input type="text" class="form-control" name="comment_text" placeholder="Type a comment..." required>
+        <input type="hidden" name="post_id" value="
+        <button class="btn btn-primary mt-2" type="submit" name="comment_btn">Send</button>
+      </form>
+  </div> -->
+  <!-- Comment Section -->
+  <!-- <div class="comment-section"> -->
+   
+
+
+    <!-- Add new comment -->
+    <!-- <form method="post" action="#">
+      <div>
+        <input type="hidden" name="post_id" value="<?= $post['post_id']; ?>">
+        <textarea class="form-control" 
+                  type="text" 
+                  name="comment_text"
+                  rows="3" 
+                  placeholder="Write a comment..." required></textarea>
+        <button class="btn btn-success m-3" type="submit" name="comment_btn">💬 Comment</button>
+      </div>
+    </form>
+</div> -->
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+  
+    document.querySelectorAll('.like-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const postId = this.dataset.postId;
+  
+        fetch('/toggle_like', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,       // <- IMPORTANT
+            'X-CSRF-Token': csrfToken       // <- Either name is fine
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify({ post_id: postId })
+        })
+        .then(r => r.ok ? r.json() : r.json().then(e => Promise.reject(e)))
+        .then(data => {
+          if (data.error) {
+            alert(data.error);
+            return;
+          }
+  
+          // toggle button text
+          this.textContent = data.liked ? '👎 Unlike' : '👍 Like';
+  
+          // update count
+          const countEl = document.getElementById('like-count-' + postId);
+          if (countEl) countEl.textContent = data.like_count;
+        })
+        .catch(err => {
+          console.error('Like error:', err);
+          alert('Could not update like right now.');
+        });
+      });
+    });
+  });
+  </script>
+  
+
+</body>
+</html>

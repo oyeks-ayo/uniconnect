@@ -1,0 +1,33 @@
+
+{% include "metas.html" %}
+
+    <title>Profile</title>
+</head>
+
+{% include 'navbar.html' %}
+<body>
+    <div class="container my-5 mt-5">
+        <img src="/static/uploads/profile/{{user.profile.pix}}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+
+        <div class="row mt-5">
+            <div class="col-9 mt-5">
+                <h1>{{user.fname}}'s Profile (@{{user.username}})</h1>
+                <p>Email: {{user.email}}</p>
+                <p>Bio: {{user.profile.bio}}</p>
+                <p>Phone: {{user.profile.phone}}</p>
+                <p>Address: {{user.profile.address}}</p>
+                <p>Level: {{user.profile.level}}</p>
+                <p>Faculty: {{department.faculty}}</p>
+                <p>Dept: {{department.dept_name}}</p>
+                <p>Posts: {{user.posts|count}}</p>
+                <p>Joined: {{user.datereg_signup.strftime('%a %dth %b %Y at %I:%M%p')}}</p>
+            </div>
+            <div class="col-3 mt-5">
+                <a class="btn btn-dark" href="{{url_for('update_profile',id=user.id)}}">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/bootstrap/js/bootstrap.bundle.js"></script>
+</body>
+</html>

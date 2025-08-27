@@ -1,0 +1,70 @@
+
+<style>
+    header {
+  background: #2e4e96;
+  color: white;
+  padding: 10px 20px;
+}
+
+header input {
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  padding: 5px 10px;
+}
+</style>
+
+<header class="d-flex flex-wrap align-items-center justify-content-between">
+    <h1 class="fs-5 m-0">GO University Connect</h1>
+    <input type="text" class="form-control w-auto" placeholder="Search classmates, items, events...">
+    <div class="d-flex gap-3 mt-2 mt-md-0">
+      <i class="fas fa-envelope"></i>
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-store"></i>
+    </div>
+    <div class="d-flex gap-3 mt-2 mt-md-0">
+      {% if session['isonline'] == vc_id %}
+      <a class="text-decoration-none text-warning" href="{{url_for('announcement')}}"><i class="fas fa-bell"></i></a>
+      {% endif %}
+      <a class="text-decoration-none text-white" href="{{url_for('home')}}"><i class="fas fa-home"></i></a>
+      <a class="text-decoration-none text-white" href="{{url_for('user_logout')}}">Logout<i class="fas fa-hand"></i></a>
+    </div>
+  </header>
+
+  <div id="search-result"
+        style= "border: 1px solid white;
+                border-radius: 30px; 
+                color: whitesmoke; 
+                width: fit-content; 
+                background-color: whitesmoke;
+                font-style: italic;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"></div>
+
+  <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">GO University Connect</a>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search students, posts, marketplace">
+        <button class="btn btn-light"><i class="fas fa-search"></i></button>
+      </form>
+      <div class="ms-3">
+        <i class="fas fa-home mx-2"></i>
+        <i class="fas fa-envelope mx-2"></i>
+        <i class="fas fa-bell mx-2"></i>
+        <i class="fas fa-store mx-2"></i>
+        <i class="fas fa-user-circle mx-2"></i>
+      </div>
+    </div>
+  </nav> -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.querySelector('header input[type="text"]');
+      const resultBox = document.getElementById('search-result');
+  
+      searchInput.addEventListener('input', function() {
+        // Show what the user typed in the resultBox
+        resultBox.textContent = "You are searching for: " + searchInput.value;
+      });
+    });
+  </script>

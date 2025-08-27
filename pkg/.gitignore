@@ -1,0 +1,44 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.so
+
+# ---- Virtual environments ----
+venv/
+ENV/
+.env/
+.venv/
+
+# ---- Flask / Instance ----
+instance/
+*.db
+*.sqlite3
+
+# ---- Environment variables ----
+.env
+.env.*
+
+# ---- macOS ----
+.DS_Store
+
+# ---- Logs ----
+*.log
+
+# ---- IDE / Editors ----
+.vscode/
+.idea/
+*.swp
+*~
+
+# ---- Migrations (optional) ----
+#migrations/
+pkg/static/bootstrap/
+pkg/static/uploads/
+pkg/securekey.py
+
+# Ignore source maps
+*.map
+
+# But keep minified CSS and JS
+!*.min.css
+!*.min.js
