@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_wtf import CSRFProtect # type: ignore
+from flask_login import LoginManager # type: ignore
 from flask_migrate import Migrate # type: ignore
 from dotenv import load_dotenv # type: ignore
 from pkg.config import Appconfig
@@ -16,12 +17,19 @@ def create_app():
     app.config.from_object(Appconfig) #TO MAKE THE CONFIG ITEMS CREATED IN PKG/CONFIG.PY AVAILABLE
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY") # Load SECRET_KEY from environment variable
     app.config.from_pyfile('config.py', silent=True)
+    app.config['UPLOAD_FOLDER'] = 'pkg/static/uploads'
 
     db.init_app(app)
     csrf.init_app(app)
     migrate = Migrate(app,db)
+    
+    app.register_blueprint(users_routes.users_bp)
+
+    with app.app_context():
+        db.create_all()
 
     return app
+
 
 app = create_app()
 
