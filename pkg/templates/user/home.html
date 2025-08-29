@@ -75,8 +75,8 @@ a {
     <!-- Left Sidebar -->
     <div class="col-lg-3 col-md-4 d-none d-md-block">
       <div class="bg-white p-3 rounded">
-       <!-- <a href="{{url_for('profile',id=user_id)}}"><div class="nav-link-custom"><img src="/static/uploads/profile/{{profile.pix}}" class="profile-pic"> My Profile</div></a> -->
-       <a class="text-decoration-none text-dark" href="{{ url_for('profile', id=user_id) }}">
+       <!-- <a href="{{url_for('profile',id=session['isonline'])}}"><div class="nav-link-custom"><img src="/static/uploads/profile/{{profile.pix}}" class="profile-pic"> My Profile</div></a> -->
+       <a class="text-decoration-none text-dark" href="{{ url_for('profile', id=session['isonline']) }}">
         <div class="nav-link-custom">
           {%  if profile and profile.pix  %}
             <img src="{{ url_for('static', filename='uploads/profile/' ~ profile.pix) }}" class="profile-pic">

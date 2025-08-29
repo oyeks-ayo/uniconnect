@@ -10,9 +10,10 @@ from pkg.models import db, Users,Profile,Posts,Likes, Comment,Department,Announc
 
 @app.context_processor
 def inject_users():
-# **************FOR CSRF TOKEN AND SERACH BOX****************
-    vc_id = Users.query.filter_by(id=session.get('vconline')).first() if session.get('vconline') else None
-    return dict(csrf_token=generate_csrf, vc_id=vc_id)
+# **************FOR CSRF TOKEN AND SERACH BOX***************
+    vc = Users.query.filter_by(username = 'VC2025').first()
+    v_id = vc.id
+    return dict(csrf_token=generate_csrf, v_id=v_id)
 # **************FOR CSRF TOKEN AND SERACH BOX****************
 
 # ****************** TO PREVENT USERS FROM USING BACK BUTTON TO RETURN TO PLATFORM AFTER LOGIN **************************
@@ -224,7 +225,7 @@ def user_signup():
     except Exception as e:
         app.logger.error(f"Error during user signup: {str(e)}", exc_info=True)
         flash(f'An error occurred while signing up. Please try again later.', category='error')
-    return render_template('user/signup.html', dept=dept)
+    return render_template('user/signup.html')
 # *********************************** USER SIGNUP **************************************************
 
 # *********************************** USER LOGIN **************************************************
@@ -425,20 +426,24 @@ def vc_login():
 
             if not uname or not pwd:
                 raise ValueError('Input fields cannot be empty')
+            
+            if uname != 'VC2025' and pwd != 'VC2025':
+                raise ValueError('You are not authorized to be here!')
+            else:
             # Check if user exists
-            user = Users.query.filter((Users.username == uname) | (Users.email == uname)).first()
+                user = Users.query.filter((Users.username == uname) | (Users.email == uname)).first()
             # user = Users.query.filter(or_(Users.username==uname,Users.email==uname)).first()
-            if not user:
-                raise ValueError('Username does not exist!')
-            # Check password
-            if not check_password_hash(user.user_pwd,pwd):
-                raise ValueError('Incorrect password!')
+                if not user:
+                    raise ValueError('Username does not exist!')
+                # Check password
+                if not check_password_hash(user.user_pwd,pwd):
+                    raise ValueError('Incorrect password!')
             # If everything is okay, set session variable
-            session['vconline'] = user.id
-            session['isonline'] = user.id
+                session['vconline'] = user.id
+                session['isonline'] = user.id
 
-            flash('You have successfully logged in', category='success')
-            return redirect(url_for('announcement'))
+                flash('You have successfully logged in', category='success')
+                return redirect(url_for('announcement'))
         except ValueError as ve:
             flash(str(ve), category='error')
         except Exception as e:
@@ -455,7 +460,7 @@ def announcement():
         flash('You need to be logged in as VC before you can visit page', category='error')
         return redirect(url_for('vc_login'))
 
-    user_id = session['vconline']
+    # user_id = session['vconline']
     announcements = db.session.query(Announcement).order_by(Announcement.date_posted.desc()).all()
 
     # Dictionary of liked posts for this user
@@ -485,5 +490,5 @@ def announcement():
         except Exception as e:
             app.logger.error(f"Error during user signup: {str(e)}", exc_info=True)
             flash(f'An error occured during upload try again later {str(e)}', category='error')
-    return render_template('user/vc/vc_announcement.html',announcements=announcements, user_id=user_id)
+    return render_template('user/vc/vc_announcement.html',announcements=announcements)
 # *********************************** VC ANNOUNCEMENT **************************************************#

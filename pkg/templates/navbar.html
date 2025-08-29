@@ -17,13 +17,14 @@ header input {
 <header class="d-flex flex-wrap align-items-center justify-content-between">
     <h1 class="fs-5 m-0">GO University Connect</h1>
     <input type="text" class="form-control w-auto" placeholder="Search classmates, items, events...">
-    <div class="d-flex gap-3 mt-2 mt-md-0">
+    <!-- <div class="d-flex gap-3 mt-2 mt-md-0">
       <i class="fas fa-envelope"></i>
+      <a class="text-decoration-none text-warning" href="{{url_for('announcement')}}"><i class="fas fa-bell"></i></a>
       <i class="fas fa-bell"></i>
       <i class="fas fa-store"></i>
-    </div>
+    </div> -->
     <div class="d-flex gap-3 mt-2 mt-md-0">
-      {% if session['isonline'] == vc_id %}
+      {% if session['isonline'] == v_id %}
       <a class="text-decoration-none text-warning" href="{{url_for('announcement')}}"><i class="fas fa-bell"></i></a>
       {% endif %}
       <a class="text-decoration-none text-white" href="{{url_for('home')}}"><i class="fas fa-home"></i></a>
@@ -36,7 +37,7 @@ header input {
                 border-radius: 30px; 
                 color: whitesmoke; 
                 width: fit-content; 
-                background-color: whitesmoke;
+                background-color: rgb(49, 47, 47);
                 font-style: italic;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"></div>
 

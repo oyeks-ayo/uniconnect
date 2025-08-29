@@ -18,7 +18,7 @@
   </div>
 
   <h2 class="mb-4 text-primary"><i class="fas fa-bullhorn"></i> Vice Chancellor Announcements</h2>
-  {% if session['isonline'] == vc_id %}
+  {% if session['isonline'] == v_id %}
   <form action="{{url_for('announcement')}}" method="post">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
@@ -58,6 +58,8 @@
   {% endfor %}
 </div>
 
+{% include 'footer.html' %}
+
 
 <script>
   // Auto-dismiss flash messages after 5 seconds
@@ -73,3 +75,4 @@
 </script>
 </body>
 </html>
+
