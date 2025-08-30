@@ -1,7 +1,6 @@
 import os
 from flask import Flask
 from flask_wtf import CSRFProtect # type: ignore
-from flask_login import LoginManager # type: ignore
 from flask_migrate import Migrate # type: ignore
 from dotenv import load_dotenv # type: ignore
 from pkg.config import Appconfig
