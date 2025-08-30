@@ -22,7 +22,7 @@ def create_app():
     csrf.init_app(app)
     migrate = Migrate(app,db)
     
-    app.register_blueprint(users_routes.users_bp)
+    # app.register_blueprint(users_routes.users_bp)
 
     with app.app_context():
         db.create_all()
