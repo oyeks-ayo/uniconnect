@@ -15,6 +15,7 @@ def create_app():
     app = Flask(__name__,instance_relative_config=True) 
     app.config.from_object(Appconfig) #TO MAKE THE CONFIG ITEMS CREATED IN PKG/CONFIG.PY AVAILABLE
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY") # Load SECRET_KEY from environment variable
+    
     app.config.from_pyfile('config.py', silent=True)
     app.config['UPLOAD_FOLDER'] = 'pkg/static/uploads'
 
