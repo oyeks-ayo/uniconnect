@@ -21,8 +21,6 @@ def create_app():
     db.init_app(app)
     csrf.init_app(app)
     migrate = Migrate(app,db)
-    
-    # app.register_blueprint(users_routes.users_bp)
 
     with app.app_context():
         db.create_all()
